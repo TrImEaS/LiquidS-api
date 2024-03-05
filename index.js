@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-import { employeeRouter } from './Routes/employees.js'
-import { conceptRouter } from './Routes/concepts.js'
+import { employeeRouter } from './src/Routes/employees.js'
+import { conceptRouter } from './src/Routes/concepts.js'
 
 const PORT = process.env.PORT ?? 1234
 
