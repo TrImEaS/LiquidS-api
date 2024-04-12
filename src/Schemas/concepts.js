@@ -1,4 +1,4 @@
-import z from 'zod'
+const z = require ('zod')
 
 const conceptsSchema = z.object({
   name: z.string({
@@ -8,10 +8,12 @@ const conceptsSchema = z.object({
   type: z.enum(['REMUNERATIVO', 'NO REMUNERATIVO', 'DESCUENTO'])
 })
 
-export default function validateConcept(object) {
+function validateConcept(object) {
   return conceptsSchema.safeParse(object)
 }
 
-export function validatePartialConcept(input) {
+function validatePartialConcept(input) {
   return conceptsSchema.partial().safeParse(input)
 }
+
+module.exports = { validateConcept, validatePartialConcept }

@@ -1,9 +1,9 @@
-import express from 'express'
-import cors from 'cors'
-import { employeeRouter } from './src/Routes/employees.js'
-import { conceptRouter } from './src/Routes/concepts.js'
+const express = require ('express')
+const cors = require ('cors')
+const { employeeRouter } = require ('./src/Routes/employees.js')
+const { conceptRouter } = require ('./src/Routes/concepts.js')
 
-const PORT = process.env.PORT ?? 8080
+const PORT = process.env.PORT || 8080
 
 const app = express()
 app.disable('x-powered-by')

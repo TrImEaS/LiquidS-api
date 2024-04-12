@@ -1,4 +1,4 @@
-import z from 'zod'
+const z = require ('zod')
 
 const employeeSchema = z.object({
   docket: z.number().int().positive(),
@@ -66,10 +66,11 @@ const employeeSchema = z.object({
   activo: z.boolean().default(true)
 })
 
-export default function validateEmployee(object) {
+function validateEmployee(object) {
   return employeeSchema.safeParse(object)
 }
-
-export function validatePartialEmployee(input) {
+function validatePartialEmployee(input) {
   return employeeSchema.partial().safeParse(input)
 }
+
+module.exports = { validateEmployee, validatePartialEmployee }

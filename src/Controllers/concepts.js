@@ -1,10 +1,8 @@
-import { ConceptModel } from '../Models/sqlite3-turso/concepts.js'
-import { validatePartialConcept } from '../Schemas/concepts.js'
-import validateConcept from '../Schemas/concepts.js'
+// const { ConceptModel } = require ('../Models/local/concepts.js')
+const { validatePartialConcept } = require ('../Schemas/concepts.js')
+const validateConcept = require ('../Schemas/concepts.js')
 
-
-export class ConceptController {
-
+class ConceptController {
   // Get all concepts
   static async getAll (req, res) {
     const { name } = req.query
@@ -82,3 +80,5 @@ export class ConceptController {
     }
   }
 }
+
+module.exports = ConceptController;

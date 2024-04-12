@@ -1,11 +1,9 @@
-// import { EmployeeModel } from "../Models/local/employee.js"
-import { EmployeeModel } from '../Models/sqlite3-turso/employee.js'
-import { validatePartialEmployee } from '../Schemas/employees.js'
-import validateEmployee from '../Schemas/employees.js'
+const { EmployeeModel } = require ('../Models/local/employee.js')
+const { validatePartialEmployee } = require ('../Schemas/employees.js')
+const validateEmployee = require ('../Schemas/employees.js')
 
 
-export class EmployeeController {
-
+class EmployeeController {
   // Get all employees
   static async getAll (req, res) {
     const { company } = req.query
@@ -91,3 +89,5 @@ export class EmployeeController {
     }
   }
 }
+
+module.exports = EmployeeController;
