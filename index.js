@@ -1,14 +1,18 @@
 const express = require ('express')
 const cors = require ('cors')
-const { employeeRouter } = require ('./src/Routes/employees.js')
-const { conceptRouter } = require ('./src/Routes/concepts.js')
+const employeeRouter = require ('./src/Routes/employees.js')
+const conceptRouter = require ('./src/Routes/concepts.js')
 
 const PORT = process.env.PORT || 8080
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https://www.technologyline.com.ar', 'https://www.line-technology.com.ar']
 
 const app = express()
 app.disable('x-powered-by')
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: allowedOrigins
+}))
+
 
 
 // Get an simple hi 

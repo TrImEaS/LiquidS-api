@@ -52,17 +52,11 @@ const employeeSchema = z.object({
   },
   { message: 'Fecha de ingreso fuera de rango (Minimo 1990-01-01)' }),
   
-  departure_date: z.string()
-  .nullable()
-  .refine((dateString) => {
-    const date = new Date(dateString)
-    return !isNaN(date.getTime())
-  },{ message: 'Fecha de partida fuera de rango (Minimo 1990-01-01)'})
-  .default(null),
+  departure_date: z.string().nullable().default(null),
   
-  company: z.enum(['Technologyline', 'Realcolor', 'Linetechnology', 'Tline']),
+  company: z.enum(['technologyline', 'realcolor', 'linetechnology', 'tline']),
 
-  civilstatus: z.enum(['soltero', 'casado', 'separado', 'divorciado', 'viudo', 'soltera', 'casada', 'separada', 'divorciada', 'viuda']),
+  civil_status: z.enum(['soltero', 'casado', 'separado', 'divorciado', 'viudo', 'soltera', 'casada', 'separada', 'divorciada', 'viuda']),
   activo: z.boolean().default(true)
 })
 

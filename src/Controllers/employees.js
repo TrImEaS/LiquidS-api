@@ -1,7 +1,5 @@
-const { EmployeeModel } = require ('../Models/local/employee.js')
-const { validatePartialEmployee } = require ('../Schemas/employees.js')
-const validateEmployee = require ('../Schemas/employees.js')
-
+const EmployeeModel = require ('../Models/local/employee.js')
+const { validatePartialEmployee, validateEmployee } = require ('../Schemas/employees.js')
 
 class EmployeeController {
   // Get all employees
@@ -23,15 +21,20 @@ class EmployeeController {
   // Create an employee
   static async create (req, res) { 
     try {
-      const result = validateEmployee(req.body)
-      const company = req.body.company
-      const docket = req.body.docket
+      const newId = await EmployeeModel.getNextId()
+      const input = {
+        id: newId,
+        company: (req.body.company).toLowerCase().trim(),
+        ...req.body,
+      }
+      
+      const result = validateEmployee(input)
   
       if (result.error){
         return res.status(422).json({ error: JSON.parse(result.error.message) })
       }
     
-      const newEmployee = await EmployeeModel.create({ input: result.data, company, docket })
+      const newEmployee = await EmployeeModel.create({ input })
       if(newEmployee === false) 
         return res.status(422).json({ message: `El legajo ingresado ya esta en uso, ultimo legajo usado en ${company} es ${docket}`})
       res.status(201).json(newEmployee)

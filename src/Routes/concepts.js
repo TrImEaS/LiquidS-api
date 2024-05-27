@@ -1,5 +1,5 @@
 const { Router } = require ('express')
-const { ConceptController } = require ('../Controllers/concepts.js')
+const ConceptController = require ('../Controllers/concepts.js')
 
 const conceptRouter = Router()
 

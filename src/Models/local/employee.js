@@ -1,13 +1,12 @@
 const fs = require('fs')
 const path = require('path')
 
-const jsonFilePath = path.resolve(__dirname, '/employee.json')
+const jsonFilePath = path.resolve(__dirname, '../../Data/Employees.json')
 
 class EmployeeModel {
   // Get all employees
   static async getAll ({ company }) {
     let employees = await this.readJsonFile()
-    console.log(jsonFilePath)
     
     if (company) {
       return employees.filter( employee => employee.company.trim() === company.toLowerCase() )}
@@ -36,14 +35,7 @@ class EmployeeModel {
 
     return nextId
   }
-  
 
-  static async getAllByCompany ({ company }) {
-    const employeesByCompany = 
-      employees.filter( employee => employee.company && employee.company.toLowerCase() === company.toLowerCase() )
-    
-    return employeesByCompany
-  }
 
   // Create an employee
   static async create ({ input }) {
@@ -104,9 +96,9 @@ class EmployeeModel {
     }
   }
 
-  // Delete an employee with the docket
-  static async delete ({ docket }) {
-    const employeeIndex = employees.findIndex(employee => employee.docket === parseInt(docket))
+  // Delete employee by id
+  static async delete ({ id }) {
+    const employeeIndex = employees.findIndex(employee => employee.id === parseInt(id))
     if(employeeIndex === -1) return false
 
     employees.splice(employeeIndex, 1)
