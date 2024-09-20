@@ -13,13 +13,6 @@ app.use(cors({
   origin: allowedOrigins
 }))
 
-
-
-// Get an simple hi 
-app.get('/', (req, res) =>{
-  res.json({ message: 'Hi welcome to the API 👌😂👌😂👌😂👌. Routes: /employees, /concepts' })
-})
-
 app.use('/employees', employeeRouter)
 
 app.use('/concepts', conceptRouter)

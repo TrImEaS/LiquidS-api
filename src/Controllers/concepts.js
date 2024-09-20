@@ -1,81 +1,65 @@
-// const { ConceptModel } = require ('../Models/local/concepts.js')
-const { validatePartialConcept } = require ('../Schemas/concepts.js')
-const validateConcept = require ('../Schemas/concepts.js')
+const ConceptModel = require ('../Models/sql/concepts.js')
+const { validatePartialConcept, validateConcept } = require ('../Schemas/concepts.js')
 
 class ConceptController {
-  // Get all concepts
-  static async getAll (req, res) {
-    const { name } = req.query
-    const employees = await ConceptModel.getAll({ name })
-    res.json(employees)
+  static async getAll(req, res) {
+    try {
+      const { id, name, number } = req.query
+      const concept = await ConceptModel.getAll({ id, name, number })
+
+      res.json(concept)
+    } 
+    catch (e) {
+      console.error('Error getting all concepts:', e); 
+      res.status(500).json({ error: 'Error al obtener los conceptos' });
+    }
   }
 
-  // Get an concept by id
-  static async getById (req, res) {
-    let { id } = req.params
-    const concept = await ConceptModel.getById(parseInt(id))
-    if (concept) return res.json(concept)
-    
-    res.status(404).json({ message: 'Employee not found' })
-  }
-
-  // Create an concept
   static async create (req, res) { 
     try {
       const result = validateConcept(req.body)
-  
       if (result.error){
         return res.status(422).json({ error: JSON.parse(result.error.message) })
       }
     
       const newConcept = await ConceptModel.create({ input: result.data })
-  
-      res.status(201).json(newConcept)
+      res.json(newConcept)
     } 
     catch (e) {
       console.log('Error updating concept: ', e)
-
-      return res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "Internal server error" });
     }
   }
 
-  // Edit an concept by id
   static async update (req, res) { 
     try {
-      const result = validatePartialConcept(req.body)
-      
+      const result = validatePartialConcept(req.body)      
       if (!result.success) 
-        return res.status(400).json({ error: JSON.parse(result.error.message) })
-      
+        return res.status(422).json({ error: JSON.parse(result.error.message) })
+
       const { id } = req.params
     
-      const updateConcept = await ConceptModel.update({ id, input: result.data })  
-    
-      return res.json(updateConcept)
-
+      const updateConcept = await ConceptModel.update({ id: parseInt(id), input: result.data })  
+      res.json(updateConcept)
     } 
     catch (e) {
       console.log('Error updating concept: ', e)
-
       return res.status(500).json({ error: "Internal server error" });
     }
   }
 
   static async delete (req, res) {
-    const { id } = req.params
-
     try {
+      const { id } = req.params
+
       const result = await ConceptModel.delete({ id: parseInt(id) })
-  
-      if (!result) {
+      if (!result)
         return res.status(404).json({ error: 'Concept not found'})
-      }
   
-      return res.json(result)
+      res.json(result)
     } 
     catch (e) {
-      console.log('Error deleting concept: ', e)
-
+      console.log('Error borrando concepto: ', e)
       return res.status(500).json({ error: "Internal server error" });
     }
   }

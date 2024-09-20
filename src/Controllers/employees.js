@@ -1,4 +1,4 @@
-const EmployeeModel = require ('../Models/local/employee.js')
+const EmployeeModel = require ('../Models/sql/employee.js')
 const { validatePartialEmployee, validateEmployee } = require ('../Schemas/employees.js')
 
 class EmployeeController {
