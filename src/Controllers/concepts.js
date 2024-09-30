@@ -4,8 +4,8 @@ const { validatePartialConcept, validateConcept } = require ('../Schemas/concept
 class ConceptController {
   static async getAll(req, res) {
     try {
-      const { id, name, number } = req.query
-      const concept = await ConceptModel.getAll({ id, name, number })
+      const { id, name, number, all } = req.query
+      const concept = await ConceptModel.getAll({ id, name, number, all })
 
       res.json(concept)
     } 
