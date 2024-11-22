@@ -10,13 +10,10 @@ const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https
 const app = express()
 app.disable('x-powered-by')
 app.use(express.json())
-app.use(cors({
-  origin: allowedOrigins
-}))
+app.use(cors({ origin: allowedOrigins }))
 
 app.use('/employees', employeeRouter)
 app.use('/concepts', conceptRouter)
 app.use('/receipts', receiptsRouter)
 
 app.listen(PORT, () => console.log(`Server listening on port http://localhost:${PORT}`))
-

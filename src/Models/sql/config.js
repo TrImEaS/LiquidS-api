@@ -4,7 +4,7 @@ const LIQUIDSPool = mysql.createPool({
   host: 'localhost',
   user: 'Thomas2024az',
   password: 'Dacarry-123@',
-  database: 'LIQUIDS',
+  database: 'liquids',
   connectionLimit: 10
 }).promise(); 
 
