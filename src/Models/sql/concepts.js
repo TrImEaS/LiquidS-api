@@ -1,7 +1,7 @@
 const { LIQUIDSPool } = require ('./config.js')
 
 class ConceptModel {
-  static async getAll ({ id, name, number, all }) {
+  static async getAll ({ id, name, number }) {
     try {
       if(id) {
         const [res] = await LIQUIDSPool.query(`SELECT * FROM concepts WHERE id = ? AND active = 1`, id)
@@ -18,12 +18,7 @@ class ConceptModel {
         return res
       }
 
-      if(all) {
-        const [res] = await LIQUIDSPool.query(`SELECT * FROM concepts`, number)
-        return res
-      }
-
-      const [res] = await LIQUIDSPool.query('SELECT * FROM concepts WHERE active = 1');
+      const [res] = await LIQUIDSPool.query('SELECT * FROM concepts');
       return res
     } 
     catch (e) {

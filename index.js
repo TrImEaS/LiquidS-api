@@ -14,6 +14,7 @@ app.use(cors({ origin: allowedOrigins }))
 
 app.use('/employees', employeeRouter)
 app.use('/concepts', conceptRouter)
+app.use('/sectors', employeeRouter)
 app.use('/receipts', receiptsRouter)
 
 app.listen(PORT, () => console.log(`Server listening on port http://localhost:${PORT}`))

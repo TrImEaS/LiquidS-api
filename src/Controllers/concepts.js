@@ -5,7 +5,7 @@ class ConceptController {
   static async getAll(req, res) {
     try {
       const { id, name, number, all } = req.query
-      const concept = await ConceptModel.getAll({ id, name, number, all })
+      const concept = await ConceptModel.getAll({ id, name, number })
 
       res.json(concept)
     } 

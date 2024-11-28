@@ -68,6 +68,31 @@ class EmployeesModel {
       throw e;
     }
   }
+
+  static async getSectors({ id, name }) {
+    try {
+      let query = 'SELECT * FROM sectors';
+      let conditions = [];
+      let params = [];
+
+      if (id) {
+        conditions.push('id = ?');
+        params.push(id);
+      }
+
+      if (name) {
+        conditions.push('name LIKE ?');
+        params.push(`%${name}%`);
+      }
+
+      const [res] = await LIQUIDSPool.query(query, params);
+      return res;
+    } 
+    catch (e) {
+      console.error('Error getting employees db:', e);
+      throw e;
+    }
+  }
 }
 
 module.exports = EmployeesModel;
